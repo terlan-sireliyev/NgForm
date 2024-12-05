@@ -1,0 +1,78 @@
+<div class="flex items-center flex-col justify-center min-h-screen bg-gray-100">
+    @if (!isActive) {
+    <form #addForm="ngForm" autocomplete="off" (ngSubmit)="add(addForm)"
+        class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+        <h2 class="text-2xl font-bold mb-4 text-gray-700 text-center">Add User</h2>
+        <div class="mb-4">
+            <label for="name" class="block text-sm font-medium text-gray-600 mb-1">Full Name</label>
+            <input type="text" id="name" name="name" [(ngModel)]="addModel.name" placeholder="Enter full name"
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+        </div>
+        <div class="mb-4">
+            <label for="username" class="block text-sm font-medium text-gray-600 mb-1">Username</label>
+            <input type="text" name="username" [(ngModel)]="addModel.username" placeholder="Enter username"
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+        </div>
+        <button type="submit"
+            class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1">
+            Add User
+        </button>
+    </form>
+    }
+    @if (isActive) {
+    <form #updateForm="ngForm" (ngSubmit)="update(updateForm)"
+        class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+        <h2 class="text-2xl font-bold mb-4 text-gray-700 text-center">Add User</h2>
+        <div class="mb-4">
+            <label for="name" class="block text-sm font-medium text-gray-600 mb-1">Full Name</label>
+            <input type="text" name="updatename" [(ngModel)]="updateModel.name" placeholder="Enter full name"
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+        </div>
+        <div class="mb-4">
+            <label for="username" class="block text-sm font-medium text-gray-600 mb-1">Username</label>
+            <input type="text" name="updateusername" [(ngModel)]="updateModel.username" placeholder="Enter username"
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+        </div>
+        <div class="flex gap-2">
+            <button type="submit"
+                class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1">
+                Update User
+            </button>
+            <button (click)="cancel()" type="submit"
+                class="w-full bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1">
+                Cancel
+            </button>
+        </div>
+    </form>
+    }
+
+    <table class="bg-white mt-4 rounded-lg shadow-lg w-full max-w-3xl max-md:max-w-md  border border-gray-200">
+        <thead>
+            <tr class="bg-gray-100 text-gray-700 text-left text-sm uppercase font-medium">
+                <th class="py-3 px-6">Name</th>
+                <th class="py-3 px-6">Username</th>
+                <th class="py-3 px-6 text-center">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (item of users; track $index) {
+            <tr class="border-b hover:bg-gray-50">
+                <td class="py-4 px-6 text-gray-600">{{item.name}}</td>
+                <td class="py-4 px-6 text-gray-600">{{item.username}}</td>
+                <td class="py-4 px-6 text-center flex justify-center gap-4">
+                    <button (click)="get(item,$index)"
+                        class="px-4 py-2 bg-yellow-400 text-white rounded-lg shadow-sm hover:bg-yellow-500 focus:outline-none">
+                        Edit
+                    </button>
+                    <button (click)="del($index)"
+                        class="px-4 py-2 bg-red-600 text-white rounded-lg shadow-sm hover:bg-red-700 focus:outline-none">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+
+            }
+        </tbody>
+    </table>
+
+</div>
